@@ -5,9 +5,11 @@ import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { toast } from "react-toastify";
 
 export default function Login() {
-  const { guestLogin, loginUser } = useContext(authContext);
+  const { loginUser } = useContext(authContext);
   const [user, setUser] = useState({});
   const [showPassword, setShowPassword] = useState(false);
+  const emailChecker =
+    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
   const togglePassword = () => {
     setShowPassword((prev) => !prev);
@@ -26,9 +28,31 @@ export default function Login() {
         progress: undefined,
         // theme: isDarkMode ? "light" : "dark",
       });
-    } else {
+    } else if (type === "wrong email") {
+      toast.error("Please enter valid email ID!", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        // theme: isDarkMode ? "light" : "dark",
+      });
+    } else if (type === "success") {
       toast.success("Login successful!", {
         position: "bottom-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        // theme: isDarkMode ? "light" : "dark",
+      });
+    } else {
+      toast.error("Please try again after sometime!", {
+        position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -48,11 +72,15 @@ export default function Login() {
   }
   async function submitLogin(e) {
     e.preventDefault();
-    const response = await loginUser(user);
-    if (response === "success") {
-      notify(e, response);
+    if (user?.emailId.match(emailChecker)) {
+      const response = await loginUser(user);
+      if (response === "success") {
+        notify(e, response);
+      } else {
+        notify(e, response);
+      }
     } else {
-      notify(e, response);
+      notify(e, "wrong email");
     }
   }
   return (
@@ -71,7 +99,7 @@ export default function Login() {
           <label htmlFor="email">Email</label>
           <input
             type="text"
-            name="email"
+            name="emailId"
             id="email"
             placeholder="awesomeShubh"
             required
