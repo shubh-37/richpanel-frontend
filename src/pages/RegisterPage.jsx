@@ -10,6 +10,8 @@ export default function Register() {
   const { signUpUser } = useContext(authContext);
   const [user, setUser] = useState({});
   const [showPassword, setShowPassword] = useState(false);
+  const emailChecker =
+    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
   const togglePassword = () => {
     setShowPassword((prev) => !prev);
@@ -17,7 +19,7 @@ export default function Register() {
   function notify(event, type) {
     event.preventDefault();
     if (type === "failure") {
-      toast.error("Username already found!", {
+      toast.error("User already exists. Please login.", {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
@@ -27,9 +29,31 @@ export default function Register() {
         progress: undefined,
         // theme: isDarkMode ? "light" : "dark",
       });
-    } else {
+    } else if (type === "wrong email") {
+      toast.error("Please enter valid email ID!", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        // theme: isDarkMode ? "light" : "dark",
+      });
+    } else if (type === "success") {
       toast.success("Sign up successful!", {
         position: "bottom-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        // theme: isDarkMode ? "light" : "dark",
+      });
+    } else {
+      toast.error("Please try again after sometime!", {
+        position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -48,11 +72,15 @@ export default function Register() {
   }
   async function submitUser(e) {
     e.preventDefault();
-    const response = await signUpUser(user);
-    if (response === "success") {
-      notify(e, response);
+    if (user?.emailId.match(emailChecker)) {
+      const response = await signUpUser(user);
+      if (response === "success") {
+        notify(e, response);
+      } else {
+        notify(e, response);
+      }
     } else {
-      notify(e, response);
+      notify(e, "wrong email");
     }
   }
   return (
@@ -69,7 +97,7 @@ export default function Register() {
           <label htmlFor="name">Name</label>
           <input
             type="text"
-            name="firstName"
+            name="name"
             id="name"
             required
             placeholder="Shubh"
@@ -78,7 +106,7 @@ export default function Register() {
           <label htmlFor="email">Email</label>
           <input
             type="text"
-            name="email"
+            name="emailId"
             id="email"
             required
             placeholder="example@gmail.com"
@@ -109,7 +137,8 @@ export default function Register() {
         <p className="signup-text">
           Already have an account?
           <Link to="/login" className="signup-link">
-            {" "}Login
+            {" "}
+            Login
           </Link>
         </p>
       </div>
