@@ -1,9 +1,18 @@
-import { useState } from "react";
-import "../css/toggle.css"; // We will define the styles in this file.
+import { useContext } from "react";
+import "../css/toggle.css";
+import { productContext } from "../context/ProductContextProvider";
 
-const Toggle = ({isMonthly, setIsMonthly}) => {
-  
-
+// eslint-disable-next-line react/prop-types
+export default function Toggle({ isMonthly, setIsMonthly }) {
+  const { paymentObj, setPaymentObj } = useContext(productContext);
+  function setPaymentObjYearly() {
+    setPaymentObj({
+      ...paymentObj,
+      planName: "Basic",
+      planPrice: 1000,
+      billingCycle: "Yearly",
+    });
+  }
   return (
     <div className="toggle-container">
       <div
@@ -14,12 +23,13 @@ const Toggle = ({isMonthly, setIsMonthly}) => {
       </div>
       <div
         className={`toggle-option ${!isMonthly ? "active" : ""}`}
-        onClick={() => setIsMonthly(false)}
+        onClick={() => {
+          setIsMonthly(false);
+          setPaymentObjYearly();
+        }}
       >
         Yearly
       </div>
     </div>
   );
-};
-
-export default Toggle;
+}
