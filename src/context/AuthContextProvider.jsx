@@ -1,19 +1,18 @@
 import axios from "axios";
 import { useState } from "react";
 import { createContext } from "react";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export const authContext = createContext();
 
 // eslint-disable-next-line react/prop-types
 export default function AuthProvider({ children }) {
   const [isLogin, setIslogin] = useState(false);
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   async function signUpUser(user) {
     try {
       const response = await axios.post("http://localhost:3000/register", user);
-      console.log(response);
       if (response.status === 201) {
         if (response.data.token) {
           localStorage.setItem("token", response.data.token);
@@ -33,14 +32,17 @@ export default function AuthProvider({ children }) {
   async function loginUser(user) {
     try {
       const response = await axios.post("http://localhost:3000/login", user);
+      console.log(response);
       if (response.status === 200) {
         if (response.data.token) {
           localStorage.setItem("token", response.data.token);
           setIslogin(true);
+          navigate("/plans");
           return "success";
         }
       }
     } catch (error) {
+      console.log(error);
       if (error.response.status === 500) {
         return "unknown";
       } else if (error.response.status === 404) {
