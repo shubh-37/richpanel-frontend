@@ -45,19 +45,6 @@
   margin: 0.5rem 0rem;
 }
 
-/* .password-container{
-  display: flex;
-  justify-content: space-between;
-} */
-
-/* .password-toggle{
-  padding: 10px;
-} */
-
-/* #password{
-  flex-grow: 1;
-} */
-
 #password, #name, #email{
   padding: 0.5rem;
   border: 1px solid #a1a1aa;
