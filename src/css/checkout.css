@@ -1,0 +1,16 @@
+.checkout-container{
+  width: 100%;
+  height: 100vh;
+  background-color: #073980;
+}
+
+.checkout-content{
+  margin: auto;
+    display: flex;
+    width: 50%;
+  background-color: white;
+}
+
+.payment{
+  border-right: 1px solid;
+}
