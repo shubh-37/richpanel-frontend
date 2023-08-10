@@ -1,0 +1,112 @@
+.switch{
+  position: relative;
+  display: inline-block;
+  width: 130px;
+  height: 45px;
+  border-radius: 200px;
+  background-color: #073980;
+  cursor: pointer;
+  transition: 1px;
+}
+
+.switch::before{
+  position: absolute;
+  content: "Monthly";
+  font-size: x-small;
+  display: flex;
+  align-items: center;
+  padding-left: 0.4rem;
+  height: 35px;
+  width: 50px;
+  left: 0;
+  background-color: white;
+  transition: 1s;
+  border-radius: 40px;
+  margin: 5px
+}
+
+
+.toggle {display: none;}
+
+/* .toggle:checked + .switch{
+  content: "Yearly";
+} */
+
+.toggle:checked + .switch::before{
+  transform: translateX(63px);
+}
+
+.plan-heading{
+  width: 4rem;
+  height: 4rem;
+  background-color: #073980;
+  color: white;
+  display: inline-block;
+  font-size: x-small;
+  margin: 0 10px;
+} 
+
+.toggle-heading{
+  padding-right: 2rem;
+}
+
+
+.square-box-container {
+  display: flex;
+}
+
+.square-box {
+  width: 100px;
+  height: 100px;
+  margin: 10px;
+  position: relative;
+  cursor: pointer;
+  background-color: #6082B6;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.active{
+  background-color: #073980;
+}
+
+.arrow {
+  width: 0;
+  height: 0;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-top: 10px solid #073980;
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.heading-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 5rem;
+}
+
+.next-btn{
+  background-color: #073980;
+  color: white;
+  border: none;
+  border-radius: 0.1rem;
+  width: 15rem;
+  height: 2rem;
+  display: block;
+  cursor: pointer;
+  padding: 0.2rem;
+  margin: auto;
+}
+
