@@ -1,0 +1,30 @@
+.toggle-container {
+  display: flex;
+  border-radius: 30px;
+  overflow: hidden;
+  width: 150px;
+  padding: 10px;
+  background-color: #073980;;
+  transition: 1s;
+  margin: 0.5rem 0rem;
+  position: sticky;
+  top: 0;
+}
+
+.toggle-option {
+  flex: 1;
+  padding: 10px;
+  text-align: center;
+  cursor: pointer;
+  background-color: #073980;
+  color: white;
+  font-size: small;
+  /* transition: background-color 0.3s, color 0.3s; */
+}
+
+.toggle-option.active {
+  background-color: white;
+  color: #073980;
+  border-radius: 25px;
+  font-size: small;
+}
