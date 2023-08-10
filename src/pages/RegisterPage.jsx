@@ -3,7 +3,6 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { authContext } from "../context/AuthContextProvider";
 import "../css/register.css";
-import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { toast } from "react-toastify";
 
 export default function Register() {
@@ -13,9 +12,6 @@ export default function Register() {
   const emailChecker =
     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-  const togglePassword = () => {
-    setShowPassword((prev) => !prev);
-  };
   function notify(event, type) {
     event.preventDefault();
     if (type === "failure") {
@@ -27,7 +23,6 @@ export default function Register() {
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        // theme: isDarkMode ? "light" : "dark",
       });
     } else if (type === "wrong email") {
       toast.error("Please enter valid email ID!", {
@@ -38,7 +33,6 @@ export default function Register() {
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        // theme: isDarkMode ? "light" : "dark",
       });
     } else if (type === "success") {
       toast.success("Sign up successful!", {
@@ -49,7 +43,6 @@ export default function Register() {
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        // theme: isDarkMode ? "light" : "dark",
       });
     } else {
       toast.error("Please try again after sometime!", {
@@ -60,7 +53,6 @@ export default function Register() {
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        // theme: isDarkMode ? "light" : "dark",
       });
     }
   }
@@ -85,13 +77,7 @@ export default function Register() {
   }
   return (
     <div className="background">
-      <div
-        className="signup-parent"
-        // style={{
-        //   backgroundColor: isDarkMode ? "#bfdbfe" : "#dbeafe",
-        //   color: isDarkMode ? "black" : "",
-        // }}
-      >
+      <div className="signup-parent">
         <p className="signup-heading">Create Account</p>
         <form onSubmit={(e) => submitUser(e)} className="form-parent">
           <label htmlFor="name">Name</label>
@@ -113,17 +99,26 @@ export default function Register() {
             onChange={(e) => userHandler(e)}
           />
           <label htmlFor="password">Password</label>
-          <div className="password-container">
+          <div style={{ position: "relative" }}>
             <input
               type={showPassword ? "text" : "password"}
-              name="password"
+              placeholder="Enter password"
               id="password"
-              placeholder="shubh@123"
-              required
+              name="password"
               onChange={(e) => userHandler(e)}
+              style={{ paddingRight: "30px", width: "86%" }} // to ensure text doesn't overlap with icon
             />
-            <span className="password-toggle" onClick={() => togglePassword()}>
-              {showPassword ? <AiFillEyeInvisible /> : <AiFillEye />}
+            <span
+              style={{
+                position: "absolute",
+                right: "10px",
+                top: "50%",
+                transform: "translateY(-50%)",
+                cursor: "pointer",
+              }}
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? "👁️" : "🙈"}
             </span>
           </div>
           <label htmlFor="remember" style={{ fontSize: "x-small" }}>
