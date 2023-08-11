@@ -1,6 +1,6 @@
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
-import CheckoutForm from "../components/CheckoutForm"; // Create this component next
+import CheckoutForm from "../components/CheckoutForm";
 import "../css/checkout.css";
 import { useLocation } from "react-router-dom";
 
@@ -15,22 +15,22 @@ export default function Checkout() {
     <div className="checkout-container">
       <div className="checkout-content">
         <div className="payment">
-          <h2>Complete Payment</h2>
-          <p>Enter your credit or debit card details below</p>
+          <h2 style={{margin: "0", marginBottom: "9px",marginTop: "8px"}}>Complete Payment</h2>
+          <p style={{fontSize: "small", margin: "0", marginBottom: "15px"}}>Enter your credit or debit card details below</p>
           <Elements stripe={stripePromise}>
             <CheckoutForm />
           </Elements>
         </div>
         <div className="summary">
-          <h3>Order Summary</h3>
+          <h3 style={{margin: "0", marginBottom: "9px", marginTop: "8px"}}>Order Summary</h3>
           
-          <div>
+          <div style={{ display: "flex", justifyContent: 'space-between', borderBottom: "1px solid #d1d5db", fontSize: "small"}}>
             <p>Plan Name</p><p>{data.planName}</p>
           </div>
-          <div>
+          <div style={{ display: "flex", justifyContent: 'space-between', borderBottom: "1px solid #d1d5db", fontSize: "small"}}>
             <p>Billing Cycle</p><p>{data.billingCycle}</p>
           </div>
-          <div>
+          <div style={{ display: "flex", justifyContent: 'space-between', borderBottom: "1px solid #d1d5db", fontSize: "small"}}>
             <p>Plan Price</p><p>₹ {data.planPrice}/{data.billingCycle === 'Monthly'? "mo" : "yearly"} </p>
           </div>
         </div>

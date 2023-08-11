@@ -7,6 +7,7 @@ import Login from "./pages/LoginPage";
 import Register from "./pages/RegisterPage";
 import SubscriptionDetail from "./pages/SubscriptionDetailPage";
 import Checkout from "./pages/CheckoutPage";
+import Home from "./pages/Homepage";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/plans" element={<SubscriptionDetail />} /> 
         <Route path="/checkout" element={<Checkout />} />
+        <Route path="/" element={<Home />} />
       </Routes>
       <ToastContainer />
     </div>

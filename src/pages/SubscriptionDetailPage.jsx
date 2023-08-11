@@ -7,18 +7,23 @@ import { productContext } from "../context/ProductContextProvider";
 
 export default function SubscriptionDetail() {
   const [isMonthly, setIsMonthly] = useState(true);
-  const { paymentObj, setPaymentObj} = useContext(productContext);
+
+  const { paymentObj, setPaymentObj, createSubscription, frequency } =
+    useContext(productContext);
+    console.log({frequency})
   const navigate = useNavigate();
   const [activeIndex, setActiveIndex] = useState(0);
   const handleSquareClick = (index) => {
     setActiveIndex(index);
   };
   function paymentDetails(item) {
+    console.log({ frequency });
     setPaymentObj({
       ...paymentObj,
       planName: item.planName,
-      planPrice: isMonthly ? item.monthlyPrice : item.yearlyPrice,
-      billingCycle: isMonthly ? "Monthly" : "Yearly",
+      planPrice: item[frequency].price,
+      billingCycle: frequency,
+      priceId: item[frequency].priceId,
     });
   }
   return (
@@ -61,7 +66,7 @@ export default function SubscriptionDetail() {
                       textAlign: "center",
                     }}
                   >
-                    ₹ {box.monthlyPrice}
+                    ₹ {box.monthly.price}
                   </p>
                   <hr />
                 </>
@@ -73,7 +78,7 @@ export default function SubscriptionDetail() {
                       textAlign: "center",
                     }}
                   >
-                    ₹ {box.yearlyPrice}
+                    ₹ {box.yearly.price}
                   </p>
                   <hr />
                 </>
@@ -120,7 +125,10 @@ export default function SubscriptionDetail() {
       </div>
       <button
         className="next-btn"
-        onClick={() => navigate("/checkout", { state: paymentObj })}
+        onClick={() => {
+          createSubscription(paymentObj);
+          navigate("/checkout", { state: paymentObj });
+        }}
       >
         Next
       </button>
