@@ -17,17 +17,6 @@ function CheckoutForm() {
     }
     const cardElement = elements.getElement(CardElement);
 
-    // const { error, paymentMethod } = await stripe.createPaymentMethod({
-    //   type: 'card',
-    //   card: cardElement,
-    // });
-
-    // if (error) {
-    //   console.error(error);
-    // } else {
-    //   console.log(paymentMethod);
-    //   // Send paymentMethod.id to your backend to complete the payment
-    // }
     const { error, paymentIntent } = await stripe.confirmCardPayment(
       clientSecret,
       {
@@ -39,9 +28,9 @@ function CheckoutForm() {
     if (error) {
       console.error(error);
     } else {
-      if(paymentIntent.status === "succeeded"){
-        const response =  await confirmSubscription(paymentIntent.client_secret);
-        if(response === 200){
+      if (paymentIntent.status === "succeeded") {
+        const response = await confirmSubscription(paymentIntent.client_secret);
+        if (response === 200) {
           navigate("/");
         }
       }

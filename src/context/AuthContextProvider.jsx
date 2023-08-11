@@ -16,7 +16,12 @@ export default function AuthProvider({ children }) {
       if (response.status === 201) {
         if (response.data.token) {
           localStorage.setItem("token", response.data.token);
+          localStorage.setItem(
+            "user",
+            JSON.stringify(response.data.user)
+          );
           setIslogin(true);
+          navigate("/plans");
           return "success";
         }
       }
@@ -36,6 +41,11 @@ export default function AuthProvider({ children }) {
       if (response.status === 200) {
         if (response.data.token) {
           localStorage.setItem("token", response.data.token);
+          console.log(response.data.userInstance);
+          localStorage.setItem(
+            "user",
+            JSON.stringify(response.data.userInstance)
+          );
           setIslogin(true);
           navigate("/plans");
           return "success";

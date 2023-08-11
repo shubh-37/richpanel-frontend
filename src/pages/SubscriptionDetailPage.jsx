@@ -10,7 +10,6 @@ export default function SubscriptionDetail() {
 
   const { paymentObj, setPaymentObj, createSubscription, frequency } =
     useContext(productContext);
-    console.log({frequency})
   const navigate = useNavigate();
   const [activeIndex, setActiveIndex] = useState(0);
   const handleSquareClick = (index) => {

@@ -8,15 +8,16 @@ import Register from "./pages/RegisterPage";
 import SubscriptionDetail from "./pages/SubscriptionDetailPage";
 import Checkout from "./pages/CheckoutPage";
 import Home from "./pages/Homepage";
+import RequiresAuth from "./components/RequiresAuth";
 
 function App() {
   return (
     <div>
       <Routes>
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={ <Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/plans" element={<SubscriptionDetail />} /> 
-        <Route path="/checkout" element={<Checkout />} />
+        <Route path="/plans" element={ <RequiresAuth><SubscriptionDetail /></RequiresAuth>} /> 
+        <Route path="/checkout" element={<RequiresAuth><Checkout /></RequiresAuth>} />
         <Route path="/" element={<Home />} />
       </Routes>
       <ToastContainer />
