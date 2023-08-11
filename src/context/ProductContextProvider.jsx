@@ -19,7 +19,7 @@ export default function ProductContextProvider({ children }) {
     const customerInfo = JSON.parse(localStorage.getItem("user"));
     try {
       const response = await axios.post(
-        "http://localhost:3000/create", //https://richpanel.bilzo.in/success
+        "https://richpanel.bilzo.in/create", //https://richpanel.bilzo.in/success //http://localhost:3000
         {
           custId: customerInfo.stripeCustomerId,
           priceId: paymentObj.priceId,
@@ -43,7 +43,7 @@ export default function ProductContextProvider({ children }) {
   async function confirmSubscription(clientSecretKey) {
     try {
       const response = await axios.post(
-        "http://localhost:3000/success",
+        "https://richpanel.bilzo.in/success",
         {
           clientSecret: clientSecretKey,
         },
@@ -68,7 +68,7 @@ export default function ProductContextProvider({ children }) {
   async function cancelSubscription(subscriptionId) {
     try {
       const response = await axios.post(
-        "http://localhost:3000/cancel",
+        "https://richpanel.bilzo.in/cancel",
         {
           subscriptionId,
         },

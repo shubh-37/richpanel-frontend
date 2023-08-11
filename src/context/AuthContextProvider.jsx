@@ -12,7 +12,7 @@ export default function AuthProvider({ children }) {
 
   async function signUpUser(user) {
     try {
-      const response = await axios.post("http://localhost:3000/register", user);
+      const response = await axios.post("https://richpanel.bilzo.in/register", user);
       if (response.status === 201) {
         if (response.data.token) {
           localStorage.setItem("token", response.data.token);
@@ -36,7 +36,7 @@ export default function AuthProvider({ children }) {
 
   async function loginUser(user) {
     try {
-      const response = await axios.post("http://localhost:3000/login", user);
+      const response = await axios.post("https://richpanel.bilzo.in/login", user);
       console.log(response);
       if (response.status === 200) {
         if (response.data.token) {
