@@ -18,7 +18,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/plans" element={ <RequiresAuth><SubscriptionDetail /></RequiresAuth>} /> 
         <Route path="/checkout" element={<RequiresAuth><Checkout /></RequiresAuth>} />
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<RequiresAuth><Home /></RequiresAuth>} />
       </Routes>
       <ToastContainer />
     </div>
