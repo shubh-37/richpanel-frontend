@@ -1,13 +1,14 @@
-import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
-import { useContext } from "react";
-import { productContext } from "../context/ProductContextProvider";
-import { useNavigate } from "react-router-dom";
+import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import { useContext } from 'react';
+import { productContext } from '../context/ProductContextProvider';
+import { useNavigate } from 'react-router-dom';
 
 function CheckoutForm() {
   const stripe = useStripe();
   const elements = useElements();
   const { clientSecret, confirmSubscription } = useContext(productContext);
   const navigate = useNavigate();
+  const customerInfo = JSON.parse(localStorage.getItem('user'));
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -16,22 +17,29 @@ function CheckoutForm() {
       return;
     }
     const cardElement = elements.getElement(CardElement);
-
-    const { error, paymentIntent } = await stripe.confirmCardPayment(
-      clientSecret,
-      {
-        payment_method: {
-          card: cardElement,
-        },
+    const billingDetails = {
+      name: customerInfo.emailId,
+      address: {
+        line1: '1234 Main Street',
+        city: 'Mumbai',
+        state: 'MH',
+        postal_code: '400001',
+        country: 'IN'
       }
-    );
+    };
+    const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
+      payment_method: {
+        card: cardElement,
+        billing_details: billingDetails
+      }
+    });
     if (error) {
       console.error(error);
     } else {
-      if (paymentIntent.status === "succeeded") {
+      if (paymentIntent.status === 'succeeded') {
         const response = await confirmSubscription(paymentIntent.client_secret);
         if (response === 200) {
-          navigate("/");
+          navigate('/');
         }
       }
     }
