@@ -4,7 +4,7 @@
   overflow: hidden;
   width: 150px;
   padding: 10px;
-  background-color: #073980;;
+  background-color: #073980;
   transition: 1s;
   margin: 0.4rem 0rem;
   position: sticky;
@@ -19,7 +19,7 @@
   background-color: #073980;
   color: white;
   font-size: small;
-  /* transition: background-color 0.3s, color 0.3s; */
+  transition: 300ms;
 }
 
 .toggle-option.active {
