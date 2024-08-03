@@ -40,3 +40,48 @@
   border-radius: 4px;
   margin-bottom: 2rem;
 }
+
+.checkout-heading{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.info {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.info .tooltiptext {
+  visibility: hidden;
+  width: max-content;
+  background-color: black;
+  color: #fff;
+  text-align: left;
+  border-radius: 6px;
+  padding: 10px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%; 
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.info .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: black transparent transparent transparent;
+}
+
+.info:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
