@@ -1,15 +1,14 @@
-import { Fragment, useContext, useState } from "react";
-import "../css/subscription.css";
-import data from "../data";
-import Toggle from "../components/Toggle";
-import { useNavigate } from "react-router-dom";
-import { productContext } from "../context/ProductContextProvider";
+import { Fragment, useContext, useState } from 'react';
+import '../css/subscription.css';
+import data from '../data';
+import Toggle from '../components/Toggle';
+import { useNavigate } from 'react-router-dom';
+import { productContext } from '../context/ProductContextProvider';
 
 export default function SubscriptionDetail() {
   const [isMonthly, setIsMonthly] = useState(true);
 
-  const { paymentObj, setPaymentObj, createSubscription, frequency } =
-    useContext(productContext);
+  const { paymentObj, setPaymentObj, createSubscription, frequency } = useContext(productContext);
   const navigate = useNavigate();
   const [activeIndex, setActiveIndex] = useState(0);
   const handleSquareClick = (index) => {
@@ -22,13 +21,13 @@ export default function SubscriptionDetail() {
       planName: item.planName,
       planPrice: item[frequency].price,
       billingCycle: frequency,
-      priceId: item[frequency].priceId,
+      priceId: item[frequency].priceId
     });
   }
   return (
     <Fragment>
       <div>
-        <h3 style={{ textAlign: "center" }}>Choose the right plan for you</h3>
+        <h3 style={{ textAlign: 'center' }}>Choose the right plan for you</h3>
       </div>
       <div className="container">
         <div className="heading-container">
@@ -46,9 +45,7 @@ export default function SubscriptionDetail() {
           {data.map((box, index) => (
             <div key={index}>
               <div
-                className={`square-box ${
-                  index === activeIndex ? "active" : ""
-                }`}
+                className={`square-box ${index === activeIndex ? 'active' : ''}`}
                 onClick={() => {
                   handleSquareClick(index);
                   paymentDetails(box);
@@ -61,8 +58,8 @@ export default function SubscriptionDetail() {
                 <>
                   <p
                     style={{
-                      color: index === activeIndex ? "#073980" : "",
-                      textAlign: "center",
+                      color: index === activeIndex ? '#073980' : '',
+                      textAlign: 'center'
                     }}
                   >
                     ₹ {box.monthly.price}
@@ -73,8 +70,8 @@ export default function SubscriptionDetail() {
                 <>
                   <p
                     style={{
-                      color: index === activeIndex ? "#073980" : "",
-                      textAlign: "center",
+                      color: index === activeIndex ? '#073980' : '',
+                      textAlign: 'center'
                     }}
                   >
                     ₹ {box.yearly.price}
@@ -85,8 +82,8 @@ export default function SubscriptionDetail() {
 
               <p
                 style={{
-                  color: index === activeIndex ? "#073980" : "",
-                  textAlign: "center",
+                  color: index === activeIndex ? '#073980' : '',
+                  textAlign: 'center'
                 }}
               >
                 {box.videoQuality}
@@ -94,8 +91,8 @@ export default function SubscriptionDetail() {
               <hr />
               <p
                 style={{
-                  color: index === activeIndex ? "#073980" : "",
-                  textAlign: "center",
+                  color: index === activeIndex ? '#073980' : '',
+                  textAlign: 'center'
                 }}
               >
                 {box.resolution}
@@ -103,14 +100,14 @@ export default function SubscriptionDetail() {
               <hr />
               <p
                 style={{
-                  color: index === activeIndex ? "#073980" : "",
-                  textAlign: "center",
+                  color: index === activeIndex ? '#073980' : '',
+                  textAlign: 'center'
                 }}
               >
                 <div
                   style={{
-                    color: index === activeIndex ? "#073980" : "",
-                    textAlign: "center",
+                    color: index === activeIndex ? '#073980' : '',
+                    textAlign: 'center'
                   }}
                 >
                   {box.devices.map((item, index) => (
@@ -124,9 +121,9 @@ export default function SubscriptionDetail() {
       </div>
       <button
         className="next-btn"
-        onClick={() => {
-          createSubscription(paymentObj);
-          navigate("/checkout", { state: paymentObj });
+        onClick={async () => {
+          await createSubscription(paymentObj);
+          navigate('/checkout', { state: paymentObj });
         }}
       >
         Next
